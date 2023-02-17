@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<style>
+html {
+	background-image: url("restaurant.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+</style>
+	<link rel="stylesheet" href="css/estilo.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Lanchonete</title>
+</h:head>
+<h:body>
+	<div id="cabecalho">
+		<h:form>
+			<p:sidebar widgetVar="sidebar3" position="top"
+				style="opacity:0.8;background-color:#FF0000!important;">
+				<p:graphicImage library="imagens" name="logo1.png" width="210" />
+
+				<p:growl id="messages" />
+				<p:menubar style="	background-color:#FFA500!important;">
+					<p:submenu label="Menu" icon="pi pi-home"
+						style="	background-color:#FFA500!important;">
+						<p:menuitem value="Menu Principal" icon="pi pi-home"
+							style="background-color:#FFA500!important;"
+							url="http://localhost:8080/lanchonete-medeiros-web-0.0.1-SNAPSHOT/menuPrincipal.xhtml" />
+					</p:submenu>
+					<p:submenu label="Cadastro" icon="pi pi-fw pi-file"
+						style="	background-color:#FFA500!important;">
+						<p:submenu label="Novo" icon="pi pi-fw pi-plus"
+							style="	background-color:#FFA500!important;">
+							<p:menuitem value="Cliente" icon="pi pi-fw pi-bookmark"
+								style="	background-color:#FFA500!important;"
+								url="http://localhost:8080/lanchonete-medeiros-web-0.0.1-SNAPSHOT/cadastrarcliente.xhtml" />
+							<p:menuitem value="Funcionario" icon="pi pi-fw pi-bookmark"
+								style="	background-color:#FFA500!important;"
+								url="http://localhost:8080/lanchonete-medeiros-web-0.0.1-SNAPSHOT/cadastrarFuncionario.xhtml" />
+							<p:menuitem value="Fornecedor" icon="pi pi-fw pi-bookmark"
+								style="	background-color:#FFA500!important;"
+								url="http://localhost:8080/lanchonete-medeiros-web-0.0.1-SNAPSHOT/cadastrarFornecedor.xhtml" />
+							<p:menuitem value="Produto" icon="pi pi-fw pi-bookmark"
+								style="	background-color:#FFA500!important;"
+								url="http://localhost:8080/lanchonete-medeiros-web-0.0.1-SNAPSHOT/cadastrarProduto.xhtml" />
+						</p:submenu>
+					</p:submenu>
+					<p:divider layout="vertical" />
+					<f:facet name="options">
+						<p:commandLink value="Logout" icon="pi pi-fw pi-sign-out"
+							action="#{funcionariobean.deslogar}"
+							styleClass="ui-button-danger" />
+					</f:facet>
+				</p:menubar>
+			</p:sidebar>
+			<center>
+				<br /> <br /> <br />
+				<p:commandButton value="Menu"
+					styleClass="rounded-button ui-button-danger"
+					style="width:200px;height:50px;opacity:0.8" type="button"
+					onclick="PF('sidebar3').show()" icon="pi pi-bars" />
+			</center>
+			<center>
+				<p:graphicImage library="imagens" name="logo1.png" width="500" />
+			</center>
+		</h:form>
+		<h1>
+			<ui:insert name="titulo">
+			</ui:insert>
+		</h1>
+	</div>
+	<div id="conteudo">
+		<ui:insert name="conteudo">
+
+		</ui:insert>
+	</div>
+</h:body>
+</html>

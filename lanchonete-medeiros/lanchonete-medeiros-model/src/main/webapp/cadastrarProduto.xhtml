@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Lanchonete</title>
+</h:head>
+<h:body>
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="conteudo">
+			<br />
+			<h:form id="form">
+				<p:growl showDetail="true" />
+				<p:panel style="opacity:0.8">
+					<center>
+						<h1>#{bundle['produto.cadastro']}</h1>
+						<p:separator />
+						<p:panelGrid columns="7" layout="grid">
+							<p:inputText type="hidden"
+								value="#{produtobean.produto.idProduto}" />
+							<p:outputLabel value="#{bundle['produto.nome']}" for="nome"
+								style="font-weight: bold;" />
+							<p:inputText value="#{produtobean.produto.nome}" id="nome"
+								required="true" style=" font-weight: bold;"
+								requiredMessage="O nome e Obrigatorio!!"
+								placeholder="Insira o Nome" size="25" />
+
+							<p:outputLabel value="#{bundle['produto.preco']}" for="preco"
+								style=" font-weight: bold;" />
+							<p:inputNumber value="#{produtobean.produto.preco}" id="preco"
+								style=" font-weight: bold;" roundMethod="S" decimalPlaces="2"
+								symbol="R$" required="true" size="5"
+								requiredMessage="O preço e Obrigatorio!!" decimalSeparator=","
+								thousandSeparator="." readonly="false" />
+
+							<p:outputLabel value="#{bundle['fornecedor.razao']}" for="razao"
+								style=" font-weight: bold;" />
+							<p:selectOneMenu
+								value="#{produtobean.produto.fornecedor.idFornecedor}"
+								style=" font-weight: bold;" id="razao"
+								converter="#{fornecedorConverter}" required="true"
+								requiredMessage="O fornecedor e Obrigatorio!!">
+								<f:selectItem itemLabel="Selecione o fornecedor"
+									noSelectionOption="true" style=" font-weight: bold;" />
+								<f:selectItems value="#{produtobean.lista}"
+									style=" font-weight: bold;" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="#{bundle['produto.codigo']}" for="codigo"
+								style=" font-weight: bold;" />
+							<p:inputMask value="#{produtobean.produto.codigoBarra}"
+								mask="9999999999" id="codigo" validateMask="true"
+								style=" font-weight: bold;"
+								requiredMessage="O codigo de barra e obrigatório !!"
+								placeholder="Insira o codigo de barra" size="10" />
+
+							<p:outputLabel value="#{bundle['tipoproduto.codigo']}" for="cod"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{produtobean.produto.tipoProduto.codigo}"
+								id="cod" placeholder="Inserir o codigo" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O codigo produto e obrigatório !!" size="15" />
+
+							<p:outputLabel value="#{bundle['tipoproduto.descricao']}"
+								for="descricao" style=" font-weight: bold;" />
+							<p:inputText value="#{produtobean.produto.tipoProduto.descricao}"
+								id="descricao" placeholder="Inserir a descrição" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="A descrição e obrigatório !!" size="25" />
+						</p:panelGrid>
+						<p:separator />
+
+						<p:commandButton value="#{bundle.salvar}" id="salvar"
+							styleClass="ui-button-info" process="@form"
+							action="#{produtobean.cadastrarProduto()}" icon="pi pi-save"
+							update="form tabelaProduto" style="margin-tpo:10pix" />
+						<p:tooltip for="salvar" value="Salvar Produto" showEffect="clip"
+							hideEffect="fold" />
+						<font></font> <font></font> <font></font> <font></font>
+					</center>
+				</p:panel>
+			</h:form>
+			<center>
+				<p:dataTable value="#{produtobean.produtos}" var="p" editable="true"
+					id="tabelaProduto"
+					style="font-weight: bold; opacity:0.8;font-size: 12px;
+				fonte-family:Helvetica Neue, HElvetica, Arial, sans-serif;"
+					paginator="true" rows="7" stickyHeader="true">
+
+					<p:column headerText="#{bundle['produto.nome']}" sortBy="#{p.nome}">
+						<h:outputText value="#{p.nome}" />
+					</p:column>
+					<p:column headerText="#{bundle['produto.preco']}">
+						<h:outputText value="#{p.preco}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="#{bundle['fornecedor.razao']}">
+						<h:outputText value="#{p.fornecedor.razaoSocial}" />
+					</p:column>
+					<p:column headerText="#{bundle['produto.codigo']}">
+						<h:outputText value="#{p.codigoBarra}" />
+						 <p:barcode value="0123456789" type="int2of5"/>
+					</p:column>
+					<p:column headerText="#{bundle['tipoproduto.codigo']}">
+						<h:outputText value="#{p.tipoProduto.codigo}" />
+					</p:column>
+					<p:column headerText="#{bundle['tipoproduto.descricao']}">
+						<h:outputText value="#{p.tipoProduto.descricao}" />
+					</p:column>
+
+
+					<p:column headerText="" width="100">
+						<p:commandButton id="editar" icon="pi pi-pencil"
+							update="form tabelaProduto" process="@this">
+							<f:setPropertyActionListener value="#{p}"
+								target="#{produtobean.produto}" />
+							<p:tooltip for="editar" value="Editar Produto" showEffect="clip"
+								hideEffect="fold" />
+						</p:commandButton>
+						<font></font>
+						<font></font>
+						<p:commandButton actionListener="#{produtobean.excluirProduto(p)}"
+							id="excluir" styleClass="ui-button-danger" icon="pi pi-trash"
+							update="form tabelaProduto" process="@this">
+							<p:tooltip for="excluir" value="Excluir Produto"
+								showEffect="clip" hideEffect="fold" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</center>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

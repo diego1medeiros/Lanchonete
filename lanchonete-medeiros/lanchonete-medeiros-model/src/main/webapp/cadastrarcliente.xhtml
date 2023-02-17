@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<link rel="stylesheet" href="css/estilo.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Lanchonete</title>
+</h:head>
+<h:body>
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="conteudo">
+			<br />
+			<h:form id="form">
+				<p:growl showDetail="true" />
+				<p:panel style="opacity:0.8">
+					<center>
+						<h1>#{bundle['cadastro.cliente']}</h1>
+						<p:separator />
+						<p:panelGrid columns="13" layout="grid" >
+							<p:inputText  type="hidden"
+								value="#{clientebean.cliente.idCliente}"/>
+							<p:outputLabel value="#{bundle['cliente.nome']}" for="nome"
+								style="font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.nome}" id="nome"
+								required="true" style=" font-weight: bold;"
+								requiredMessage="O nome e Obrigatorio!!"
+								placeholder="Insira o Nome" size="45" />
+
+							<p:outputLabel value="#{bundle['cliente.cpf']}" for="cpf"
+								style=" font-weight: bold;" />
+							<p:inputMask value="#{clientebean.cliente.cpf}" id="cpf"
+								required="true" mask="999.999.999-99"
+								style=" font-weight: bold;" validateMask="true"
+								requiredMessage="O cpf e obrigatório !!"
+								placeholder="Insira o cpf" size="18" />
+
+							<p:outputLabel value="#{bundle['cliente.telefone']}"
+								for="telefone" style=" font-weight: bold;" />
+							<p:inputMask value="#{clientebean.cliente.telefone}"
+								id="telefone" required="true" mask="(99) 99999-9999"
+								style=" font-weight: bold;" validateMask="true"
+								requiredMessage="O telefone e obrigatório !!"
+								placeholder="Insira o telefone" size="18" />
+
+							<p:outputLabel value="#{bundle['cliente.email']}" for="email"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.email}" id="email"
+								validateMask="true" style=" font-weight: bold;"
+								requiredMessage="O email e obrigatório !!"
+								placeholder="Insira o email" size="40" />
+
+							<p:outputLabel value="#{bundle['endereco.cep']}" for="cep"
+								style=" font-weight: bold;" />
+							<p:inputMask value="#{clientebean.cliente.endereco.cep}" id="cep"
+								placeholder="Inserir o Cep" required="true" mask="99999-999"
+								style=" font-weight: bold;"
+								requiredMessage="O cep e obrigatório !!" size="10" />
+
+							<p:outputLabel value="#{bundle['endereco.bairro']}" for="bairro"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.endereco.bairro}"
+								id="bairro" placeholder="Inserir o Bairro" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O bairro e obrigatório !!" size="15" />
+
+							<p:outputLabel value="#{bundle['endereco.cidade']}" for="cidade"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.endereco.cidade}"
+								id="cidade" placeholder="Inserir a Cidade" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="A Cidade e obrigatório !!" size="15" />
+
+							<p:outputLabel value="#{bundle['endereco.estado']}" for="estado"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.endereco.estado}"
+								id="estado" placeholder="Inserir o Estado" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O estado e obrigatório !!" size="5" />
+
+							<p:outputLabel value="#{bundle['endereco.rua']}" for="rua"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.endereco.rua}" id="rua"
+								placeholder="Inserir a rua" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="A rua e obrigatório !!" size="25" />
+
+							<p:outputLabel value="#{bundle['endereco.numero']}" for="numero"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{clientebean.cliente.endereco.numero}"
+								id="numero" placeholder="Inserir o numero" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O numero e obrigatório !!" size="5" />
+						</p:panelGrid>
+						<p:separator />
+
+						<p:commandButton value="#{bundle.salvar}" id="salvar"
+							styleClass="ui-button-info" process="@form"
+							action="#{clientebean.cadastrarCliente}" icon="pi pi-save"
+							update="form tabelaCliente" style="margin-tpo:10pix" />
+						<p:tooltip for="salvar" value="Salvar Cliente" showEffect="clip"
+							hideEffect="fold" />
+						<font></font> <font></font> <font></font> <font></font>
+					</center>
+				</p:panel>
+			</h:form>
+			<center>
+				<p:dataTable value="#{clientebean.clientes}" var="c" editable="true"
+					id="tabelaCliente" style="font-weight: bold; opacity:0.8;font-size: 12px;
+				fonte-family:Helvetica Neue, HElvetica, Arial, sans-serif;" paginator="true" rows="7"
+					stickyHeader="true">
+					
+					<p:column headerText="#{bundle['cliente.nome']}" sortBy="#{c.nome}">
+						<h:outputText value="#{c.nome}" />
+					</p:column>
+					<p:column headerText="#{bundle['cliente.cpf']}">
+						<h:outputText value="#{c.cpf}" />
+					</p:column>
+					<p:column headerText="#{bundle['cliente.telefone']}">
+						<h:outputText value="#{c.telefone}" />
+					</p:column>
+					<p:column headerText="#{bundle['cliente.email']}">
+						<h:outputText value="#{c.email}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.cep']}" width="50">
+						<h:outputText value="#{c.endereco.cep}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.bairro']}" width="50">
+						<h:outputText value="#{c.endereco.bairro}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.cidade']}" width="50">
+						<h:outputText value="#{c.endereco.cidade}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.estado']}" width="50">
+						<h:outputText value="#{c.endereco.estado}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.rua']}">
+						<h:outputText value="#{c.endereco.rua}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.numero']}" width="50">
+						<h:outputText value="#{c.endereco.numero}" />
+					</p:column>
+					
+					<p:column headerText="" width="100">
+						<p:commandButton id="editar" icon="pi pi-pencil"
+							update="form tabelaCliente" process="@this">
+							<f:setPropertyActionListener value="#{c}"
+								target="#{clientebean.cliente}" />
+							<p:tooltip for="editar" value="Editar Cliente" showEffect="clip"
+								hideEffect="fold" />
+						</p:commandButton>
+						<font></font>
+						<font></font>
+						<p:commandButton actionListener="#{clientebean.excluirCliente(c)}"
+							id="excluir" styleClass="ui-button-danger" icon="pi pi-trash"
+							update="form tabelaCliente" process="@this">
+							<p:tooltip for="excluir" value="Excluir Cliente"
+								showEffect="clip" hideEffect="fold" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</center>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<link rel="stylesheet" href="css/estilo.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="shortcut icon" href="logo1.png" />
+	
+	<title>Lanchonete</title>
+	
+</h:head>
+<h:body>
+	<ui:composition template="/_template.xhtml">
+		<ui:define name="conteudo">
+			<br />
+
+			<h:form id="form">
+			<p:growl showDetail="true" />	
+				<p:panel style="opacity:0.8">
+					<center>
+						<h1>#{bundle['fornecedor.cadastro']}</h1>
+						<p:separator />
+						<p:panelGrid columns="14" layout="grid">
+						<p:inputText  type="hidden"
+								value="#{fornecedorbean.fornecedor.idFornecedor}"/>
+							<p:outputLabel value="#{bundle['fornecedor.razao']}" for="nome"
+								style="font-weight: bold;" />
+							<p:inputText value="#{fornecedorbean.fornecedor.razaoSocial}"
+								id="nome" required="true" style=" font-weight: bold;"
+								requiredMessage="O nome e Obrigatorio!!"
+								placeholder="Insira o Nome" size="40" />
+							<p:outputLabel value="#{bundle['fornecedor.cnpj']}" for="cnpj"
+								style=" font-weight: bold;" />
+							<p:inputMask value="#{fornecedorbean.fornecedor.cnpj}" id="cnpj"
+								required="true" mask="99.999.999/9999-99"
+								style=" font-weight: bold;" validateMask="true"
+								requiredMessage="O cnpj e obrigatório !!"
+								placeholder="Insira o cnpj" size="15" />
+
+							<p:outputLabel value="#{bundle['fornecedor.telefone']}"
+								for="telefone" style=" font-weight: bold;" />
+							<p:inputMask value="#{fornecedorbean.fornecedor.telefone}"
+								id="telefone" required="true" mask="(99) 99999-9999"
+								style=" font-weight: bold;" validateMask="true"
+								requiredMessage="O telefone e obrigatório !!"
+								placeholder="Insira o telefone" size="20" />
+
+							<p:outputLabel value="#{bundle['fornecedor.email']}" for="email"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{fornecedorbean.fornecedor.email}"
+								id="email" validateMask="true" style=" font-weight: bold;"
+								requiredMessage="O email e obrigatório !!"
+								placeholder="Insira o email" size="35" />
+								
+								
+								<p:outputLabel value="Cep" for="cep" style=" font-weight: bold;" />
+							<p:inputMask value="#{fornecedorbean.fornecedor.endereco.cep}"
+								id="cep" placeholder="Inserir o Cep" required="true"
+								mask="99999-999" style=" font-weight: bold;"
+								requiredMessage="O cep e obrigatório !!" size="10" />
+
+							<p:outputLabel value="#{bundle['endereco.bairro']}" for="bairro"
+								style=" font-weight: bold;" />
+							<p:inputText
+								value="#{fornecedorbean.fornecedor.endereco.bairro}"
+								id="bairro" placeholder="Inserir o Bairro" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O bairro e obrigatório !!" size="10" />
+
+							<p:outputLabel value="#{bundle['endereco.cidade']}" for="cidade"
+								style=" font-weight: bold;" />
+							<p:inputText
+								value="#{fornecedorbean.fornecedor.endereco.cidade}"
+								id="cidade" placeholder="Inserir a Cidade" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="A Cidade e obrigatório !!" size="10" />
+
+							<p:outputLabel value="#{bundle['endereco.estado']}" for="estado"
+								style=" font-weight: bold;" />
+							<p:inputText
+								value="#{fornecedorbean.fornecedor.endereco.estado}"
+								id="estado" placeholder=" Estado" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O estado e obrigatório !!" size="5" />
+
+							<p:outputLabel value="#{bundle['endereco.rua']}" for="rua"
+								style=" font-weight: bold;" />
+							<p:inputText value="#{fornecedorbean.fornecedor.endereco.rua}"
+								id="rua" placeholder="Inserir a rua" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="A rua e obrigatório !!" size="25" />
+
+							<p:outputLabel value="#{bundle['endereco.numero']}" for="numero"
+								style=" font-weight: bold;" />
+							<p:inputText
+								value="#{fornecedorbean.fornecedor.endereco.numero}"
+								id="numero" placeholder="numero" required="true"
+								style=" font-weight: bold;"
+								requiredMessage="O numero e obrigatório !!" size="5" />
+								</p:panelGrid>
+						<p:separator />
+						
+						<p:commandButton value="#{bundle.salvar}" id="salvar"
+							styleClass="ui-button-info" process="@form"
+							action="#{fornecedorbean.cadastrarFornecedor()}" icon="pi pi-save"
+							update="form tabela" style="margin-tpo:10pix" />
+						<p:tooltip for="salvar" value="Salvar Fornecedor"
+							showEffect="clip" hideEffect="fold" />
+						<font></font> <font></font> <font></font> <font></font>
+					</center>
+				</p:panel>
+			
+			<center>
+				<p:dataTable value="#{fornecedorbean.fornecedores}" var="f"
+					editable="true" id="tabela" style="font-weight: bold; opacity:0.8;font-size: 12px;
+				fonte-family:Helvetica Neue, HElvetica, Arial, sans-serif;" paginator="true"
+					rows="7" stickyHeader="true">
+					<p:column headerText="#{bundle['fornecedor.razao']}"
+						sortBy="#{f.razaoSocial}">
+						<h:outputText value="#{f.razaoSocial}" />
+					</p:column>
+					<p:column headerText="#{bundle['fornecedor.cnpj']}">
+						<h:outputText value="#{f.cnpj}" />
+					</p:column>
+					<p:column headerText="#{bundle['fornecedor.telefone']}">
+						<h:outputText value="#{f.telefone}" />
+					</p:column>
+					<p:column headerText="#{bundle['fornecedor.email']}">
+						<h:outputText value="#{f.email}" />
+					</p:column>
+					<p:column headerText="#{bundle['endereco.cep']}" >
+					<h:outputText value="#{f.endereco.cep}" />
+				</p:column>
+				<p:column headerText="#{bundle['endereco.bairro']}" >
+					<h:outputText value="#{f.endereco.bairro}" />
+				</p:column>
+				<p:column headerText="#{bundle['endereco.cidade']}" >
+					<h:outputText value="#{f.endereco.cidade}" />
+				</p:column>
+				<p:column headerText="#{bundle['endereco.estado']}">
+					<h:outputText value="#{f.endereco.estado}" />
+				</p:column>
+				<p:column headerText="#{bundle['endereco.rua']}">
+					<h:outputText value="#{f.endereco.rua}" />
+				</p:column>
+				<p:column headerText="#{bundle['endereco.numero']}" >
+					<h:outputText value="#{f.endereco.numero}" />
+				</p:column>
+					<p:column headerText="" width="100" exportable="false">
+						<p:commandButton id="editar" icon="pi pi-pencil"
+							update="form tabela" process="@this">
+							<f:setPropertyActionListener value="#{f}"
+								target="#{fornecedorbean.fornecedor}" />
+							<p:tooltip for="editar" value="Editar Fornecedor"
+								showEffect="clip" hideEffect="fold" />
+		.				</p:commandButton>
+						<font></font>
+						<font></font>
+						<p:commandButton 
+							actionListener="#{fornecedorbean.excluirFornecedor(f)}"
+							id="excluir" styleClass="ui-button-danger" icon="pi pi-trash"
+							update="form tabela" process="@this">
+							<p:tooltip for="excluir" value="Excluir Fornecedor"
+								showEffect="clip" hideEffect="fold" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</center>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

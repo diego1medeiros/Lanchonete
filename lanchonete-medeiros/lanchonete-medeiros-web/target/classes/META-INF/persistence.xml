@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="lanchonetePU">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<jta-data-source>java:/lanchoneteDS</jta-data-source>
+		<class>br.com.lanchonete.entity.Cliente</class>
+		<class>br.com.lanchonete.entity.Endereco</class>
+		<class>br.com.lanchonete.entity.Estoque</class>
+		<class>br.com.lanchonete.entity.Fornecedor</class>
+		<class>br.com.lanchonete.entity.Funcionario</class>
+		<class>br.com.lanchonete.entity.ItemVenda</class>
+		<class>br.com.lanchonete.entity.Venda</class>
+		<class>br.com.lanchonete.entity.MovimentacaoCaixa</class>
+		<class>br.com.lanchonete.entity.Produto</class>
+		<class>br.com.lanchonete.entity.TipoPagamento</class>
+		<class>br.com.lanchonete.entity.TipoProduto</class>
+		<class>br.com.lanchonete.entity.PerfilAcesso</class>
+		
+		
+		<properties>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name=" hibernate.show_sql " value=" true " />
+			<property name=" hibernate.format_sql " value=" true " />
+			  
+			
+		</properties>
+	</persistence-unit>
+</persistence>
